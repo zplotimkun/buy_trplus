@@ -24,9 +24,8 @@ if to_go == 'go':
             get_goods.click()
             time.sleep(0.1)
             
-            driver.switch_to_alert().accept()
             try:
-                WebDriverWait(driver, 1).until(EC.alert_is_present(),
+                WebDriverWait(driver, 0.5).until(EC.alert_is_present(),
                                    'Timed out waiting for PA creation ' +
                                    'confirmation popup to appear.')
 
@@ -40,13 +39,15 @@ if to_go == 'go':
         except:
             print('刷新')
             try:
-                WebDriverWait(driver, 1).until(EC.alert_is_present(),
+                WebDriverWait(driver, 0.5).until(EC.alert_is_present(),
                                    'Timed out waiting for PA creation ' +
                                    'confirmation popup to appear.')
 
                 alert = driver.switch_to.alert
                 alert.accept()
                 print("alert accepted")
+                driver.refresh()
+                driver.implicitly_wait(30)
             except TimeoutException:
                 print("no alert")
 
